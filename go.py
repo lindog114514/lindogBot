@@ -85,8 +85,45 @@ class MyClient(botpy.Client):
                      msg_seq=2,
                      content=f"签到失败，原因：时间这么晚了，赶紧洗洗睡了，明天的6点到23点再试")
 
-        elif splited_content[0] =='2':
-                pass
+
+        elif splited_content[0] =='我的运气值':
+            q= random.randint(1, 100)
+            if 1 <= q <= 10:
+                await message._api.post_group_message(
+                     group_openid=message.group_openid,
+                     msg_type=0,
+                     msg_id=message.id,
+                     content=f"您的运气值是：%q,看来您的运气很不好，你记得出门注意点")
+            elif 20 <= number <= 40:
+                await message._api.post_group_message(
+                     group_openid=message.group_openid,
+                     msg_type=0,
+                     msg_id=message.id,
+                     content=f"您的运气值是：%q,看来你的运气有点差，记得做点开心的事情٩(๑^o^๑)۶")
+            elif 50 <= number <= 60:
+                await message._api.post_group_message(
+                     group_openid=message.group_openid,
+                     msg_type=0,
+                     msg_id=message.id,
+                     content=f"您的运气值是：%q,看来您的运气中等")
+            elif 60 < number <= 90:
+                await message._api.post_group_message(
+                     group_openid=message.group_openid,
+                     msg_type=0,
+                     msg_id=message.id,
+                     content=f"您的运气值是：%q,你的运气比较好，应该可以去刮个彩票了")
+            elif 90 <= number < 100:
+                await message._api.post_group_message(
+                     group_openid=message.group_openid,
+                     msg_type=0,
+                     msg_id=message.id,
+                     content=f"您的运气值是：%q,你的运气非比寻常了")
+            elif number == 100:
+                await message._api.post_group_message(
+                     group_openid=message.group_openid,
+                     msg_type=0,
+                     msg_id=message.id,
+                     content=f"您的运气值是：%q！居然是100，看来欧皇就是你了！！！！！！")
         elif splited_content[0] =='3':
                 pass
         else:
@@ -107,7 +144,7 @@ class MyClient(botpy.Client):
 
 
 if __name__ == "__main__":
-    # 通过预设置的类型，设置需要监听的事件通道
+    # 通过预设置的类型，设置需要监听的事件 通道
     # intents = botpy.Intents.none()
     # intents.public_messages=True
 
