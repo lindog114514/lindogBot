@@ -60,7 +60,6 @@ class MyClient(botpy.Client):
             event_id=event.event_id,
             content="好耶，我终于能说话了",
         )
-
     async def on_group_at_message_create(self, message: GroupMessage):
         _log.info(f"收到了消息：{message.content}")
         splited_content = message.content.split()
