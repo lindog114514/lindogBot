@@ -52,7 +52,6 @@ class MyClient(botpy.Client):
             event_id=event.event_id,
             content="被管理员带口球了，赶紧让管理员开启主动消息",
         )
-
     async def on_group_msg_receive(self, event: GroupManageEvent):
         _log.info("群聊打开机器人主动消息：" + str(event))
         await self.api.post_c2c_message(
