@@ -45,6 +45,7 @@ class MyClient(botpy.Client):
         )
     async def on_group_msg_reject(self, event: GroupManageEvent):
         _log.info("群聊关闭机器人主动消息：" + str(event))
+
         await self.api.post_c2c_message(
             openid=event.openid,
             msg_type=0,
