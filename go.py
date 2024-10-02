@@ -93,37 +93,37 @@ class MyClient(botpy.Client):
                      group_openid=message.group_openid,
                      msg_type=0,
                      msg_id=message.id,
-                     content=f"您的运气值是：%q,看来您的运气很不好，你记得出门注意点")
-            elif 20 <= number <= 40:
+                     content=f"您的运气值是：%s看来您的运气很不好，你记得出门注意点"%q)
+            elif 20 <= q <= 40:
                 await message._api.post_group_message(
                      group_openid=message.group_openid,
                      msg_type=0,
                      msg_id=message.id,
-                     content=f"您的运气值是：%q,看来你的运气有点差，记得做点开心的事情٩(๑^o^๑)۶")
-            elif 50 <= number <= 60:
+                     content=f"您的运气值是：%s看来你的运气有点差，记得做点开心的事情٩(๑^o^๑)۶"%q)
+            elif 50 <= q <= 60:
                 await message._api.post_group_message(
                      group_openid=message.group_openid,
                      msg_type=0,
                      msg_id=message.id,
-                     content=f"您的运气值是：%q,看来您的运气中等")
-            elif 60 < number <= 90:
+                     content=f"您的运气值是：%s看来您的运气中等"%q)
+            elif 60 < q <= 90:
                 await message._api.post_group_message(
                      group_openid=message.group_openid,
                      msg_type=0,
                      msg_id=message.id,
-                     content=f"您的运气值是：%q,你的运气比较好，应该可以去刮个彩票了")
-            elif 90 <= number < 100:
+                    content="您的运气值是：%s，你的运气比较好，应该可以去刮个彩票了。"%q)
+            elif 90 <= q < 100:
                 await message._api.post_group_message(
                      group_openid=message.group_openid,
                      msg_type=0,
                      msg_id=message.id,
-                     content=f"您的运气值是：%q,你的运气非比寻常了")
-            elif number == 100:
+                     content=f"您的运气值是：%s你的运气非比寻常了"%q)
+            elif q == 100:
                 await message._api.post_group_message(
                      group_openid=message.group_openid,
                      msg_type=0,
                      msg_id=message.id,
-                     content=f"您的运气值是：%q！居然是100，看来欧皇就是你了！！！！！！")
+                     content=f"您的运气值是：%s居然是100，看来欧皇就是你了！！！！！！"%q)
         elif splited_content[0] =='3':
                 pass
         else:
