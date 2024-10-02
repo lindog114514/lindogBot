@@ -36,14 +36,6 @@ class MyClient(botpy.Client):
             event_id=event.event_id,
             content="你好，我是林狗狗，一种多功能调教型机器人，艾特我获取更多调教指令",
         )
-    async def on_group_del_robot(self, event: GroupManageEvent):
-        _log.info("机器人被移除群聊：" + str(event))
-        await self.api.post_c2c_message(
-            openid=event.openid,
-            msg_type=0,
-            event_id=event.event_id,
-            content="再见",
-        )
 
     async def on_group_at_message_create(self, message: GroupMessage):
         _log.info(f"收到了消息：{message.content}")
