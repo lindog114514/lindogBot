@@ -1,0 +1,39 @@
+[2024-08-13 14:07:30,545] [TapTapLogin-<module>][PhiQRCodeLogin] [DEBUG] - Logger is loading completed.
+[2024-08-13 14:07:30,547] [connectionpool-_new_conn][urllib3.connectionpool] [DEBUG] - Starting new HTTPS connection (1): accounts.tapapis.cn:443
+[2024-08-13 14:07:30,863] [connectionpool-_make_request][urllib3.connectionpool] [DEBUG] - https://accounts.tapapis.cn:443 "POST /oauth2/v1/device/code HTTP/11" 200 None
+[2024-08-13 14:07:30,864] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request type：POST
+[2024-08-13 14:07:30,864] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request URL：https://accounts.tapapis.cn/oauth2/v1/device/code
+[2024-08-13 14:07:30,865] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request header：{'X-LC-Sign': 'f1d4a18702a7971edb6fdf1400e9c9a0,1723529250545'}
+[2024-08-13 14:07:30,865] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request data：{'client_id': 'rAK3FfdieFob2Nn8Am', 'response_type': 'device_code', 'scope': 'public_profile', 'version': '2.1', 'platform': 'unity', 'info': "{'device_id': '57cc7a26c7d846f3895cacfa5db1ca95'}"}
+[2024-08-13 14:07:30,865] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Return header：{'Date': 'Tue, 13 Aug 2024 06:07:07 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'cache-control': 'no-store', 'set-cookie': 'ACCOUNTS_USER_ID=0; Path=/; Domain=tapapis.cn; Max-Age=0; Secure', 'content-encoding': 'gzip', 'vary': 'Accept-Encoding', 'Strict-Transport-Security': 'max-age=31536000'}
+[2024-08-13 14:07:30,865] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Status code：200
+[2024-08-13 14:07:30,865] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Return data：{"data":{"device_code":"345blUkC7sXpm67K4BCefXykOgOMso4hFbJESs24","user_code":"gu4vx","verification_url":"https://accounts.taptap.cn/device","expires_in":300,"interval":2,"qrcode_url":"https://accounts.taptap.cn/device?qrcode=1\u0026user_code=gu4vx"},"now":1723529226,"success":true}
+[2024-08-13 14:07:30,865] [QRCodeGetToken-<module>][PhiQRCodeLogin] [INFO] - 获取二维码信息成功：{'device_id': '57cc7a26c7d846f3895cacfa5db1ca95', 'device_code': '345blUkC7sXpm67K4BCefXykOgOMso4hFbJESs24', 'user_code': 'gu4vx', 'verification_url': 'https://accounts.taptap.cn/device', 'expires_in': 300, 'interval': 2, 'qrcode_url': 'https://accounts.taptap.cn/device?qrcode=1&user_code=gu4vx'}
+[2024-08-13 14:07:30,865] [QRCodeGetToken-<module>][PhiQRCodeLogin] [INFO] - 已生成二维码！
+[2024-08-13 14:07:30,999] [connectionpool-_make_request][urllib3.connectionpool] [DEBUG] - https://accounts.tapapis.cn:443 "POST /oauth2/v1/token HTTP/11" 400 225
+[2024-08-13 14:07:30,999] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request type：POST
+[2024-08-13 14:07:30,999] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request URL：https://accounts.tapapis.cn/oauth2/v1/token
+[2024-08-13 14:07:30,999] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request header：{'X-LC-Sign': 'fab7c712a007ee471643073309d7eb60,1723529250899'}
+[2024-08-13 14:07:30,999] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request data：{'grant_type': 'device_token', 'client_id': 'rAK3FfdieFob2Nn8Am', 'secret_type': 'hmac-sha-1', 'code': '345blUkC7sXpm67K4BCefXykOgOMso4hFbJESs24', 'version': '1.0', 'platform': 'unity', 'info': '{"device_id": "57cc7a26c7d846f3895cacfa5db1ca95"}'}
+[2024-08-13 14:07:30,999] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Return header：{'Date': 'Tue, 13 Aug 2024 06:07:07 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '225', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'cache-control': 'no-store', 'set-cookie': 'ACCOUNTS_USER_ID=0; Path=/; Domain=tapapis.cn; Max-Age=0; Secure', 'Strict-Transport-Security': 'max-age=31536000'}
+[2024-08-13 14:07:30,999] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Status code：400
+[2024-08-13 14:07:30,999] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Return data：{"data":{"code":-1,"msg":"请求错误","error":"authorization_pending","error_description":"oauth2.tapapis.com.AUTHORIZATION_PENDING: InvalidArgument: the end-user authorization is pending"},"now":1723529227,"success":false}
+[2024-08-13 14:07:31,000] [QRCodeGetToken-<module>][PhiQRCodeLogin] [INFO] - 二维码登录未授权...
+[2024-08-13 14:07:33,101] [connectionpool-_make_request][urllib3.connectionpool] [DEBUG] - https://accounts.tapapis.cn:443 "POST /oauth2/v1/token HTTP/11" 400 225
+[2024-08-13 14:07:33,102] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request type：POST
+[2024-08-13 14:07:33,102] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request URL：https://accounts.tapapis.cn/oauth2/v1/token
+[2024-08-13 14:07:33,102] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request header：{'X-LC-Sign': 'd36afdafdad365736f74c63c325c3b55,1723529253001'}
+[2024-08-13 14:07:33,102] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request data：{'grant_type': 'device_token', 'client_id': 'rAK3FfdieFob2Nn8Am', 'secret_type': 'hmac-sha-1', 'code': '345blUkC7sXpm67K4BCefXykOgOMso4hFbJESs24', 'version': '1.0', 'platform': 'unity', 'info': '{"device_id": "57cc7a26c7d846f3895cacfa5db1ca95"}'}
+[2024-08-13 14:07:33,102] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Return header：{'Date': 'Tue, 13 Aug 2024 06:07:09 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '225', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'cache-control': 'no-store', 'set-cookie': 'ACCOUNTS_USER_ID=0; Path=/; Domain=tapapis.cn; Max-Age=0; Secure', 'Strict-Transport-Security': 'max-age=31536000'}
+[2024-08-13 14:07:33,102] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Status code：400
+[2024-08-13 14:07:33,102] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Return data：{"data":{"code":-1,"msg":"请求错误","error":"authorization_pending","error_description":"oauth2.tapapis.com.AUTHORIZATION_PENDING: InvalidArgument: the end-user authorization is pending"},"now":1723529229,"success":false}
+[2024-08-13 14:07:33,102] [QRCodeGetToken-<module>][PhiQRCodeLogin] [INFO] - 二维码登录未授权...
+[2024-08-13 14:07:35,205] [connectionpool-_make_request][urllib3.connectionpool] [DEBUG] - https://accounts.tapapis.cn:443 "POST /oauth2/v1/token HTTP/11" 400 225
+[2024-08-13 14:07:35,205] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request type：POST
+[2024-08-13 14:07:35,205] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request URL：https://accounts.tapapis.cn/oauth2/v1/token
+[2024-08-13 14:07:35,205] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request header：{'X-LC-Sign': 'ae3abc14164621897f19fb1ccda7aa48,1723529255103'}
+[2024-08-13 14:07:35,205] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request data：{'grant_type': 'device_token', 'client_id': 'rAK3FfdieFob2Nn8Am', 'secret_type': 'hmac-sha-1', 'code': '345blUkC7sXpm67K4BCefXykOgOMso4hFbJESs24', 'version': '1.0', 'platform': 'unity', 'info': '{"device_id": "57cc7a26c7d846f3895cacfa5db1ca95"}'}
+[2024-08-13 14:07:35,205] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Return header：{'Date': 'Tue, 13 Aug 2024 06:07:11 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '225', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'cache-control': 'no-store', 'set-cookie': 'ACCOUNTS_USER_ID=0; Path=/; Domain=tapapis.cn; Max-Age=0; Secure', 'Strict-Transport-Security': 'max-age=31536000'}
+[2024-08-13 14:07:35,205] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Status code：400
+[2024-08-13 14:07:35,205] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Return data：{"data":{"code":-1,"msg":"请求错误","error":"authorization_pending","error_description":"oauth2.tapapis.com.AUTHORIZATION_PENDING: InvalidArgument: the end-user authorization is pending"},"now":1723529231,"success":false}
+[2024-08-13 14:07:35,205] [QRCodeGetToken-<module>][PhiQRCodeLogin] [INFO] - 二维码登录未授权...

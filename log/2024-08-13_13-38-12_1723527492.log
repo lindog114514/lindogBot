@@ -1,0 +1,12 @@
+[2024-08-13 13:38:12,967] [TapTapLogin-<module>][PhiQRCodeLogin] [DEBUG] - Logger is loading completed.
+[2024-08-13 13:38:12,979] [connectionpool-_new_conn][urllib3.connectionpool] [DEBUG] - Starting new HTTPS connection (1): accounts.tapapis.cn:443
+[2024-08-13 13:38:13,279] [connectionpool-_make_request][urllib3.connectionpool] [DEBUG] - https://accounts.tapapis.cn:443 "POST /oauth2/v1/device/code HTTP/11" 200 None
+[2024-08-13 13:38:13,280] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request type：POST
+[2024-08-13 13:38:13,281] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request URL：https://accounts.tapapis.cn/oauth2/v1/device/code
+[2024-08-13 13:38:13,281] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request header：{'X-LC-Sign': 'e6e794803deec25d587ae13c950372e1,1723527492968'}
+[2024-08-13 13:38:13,281] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Request data：{'client_id': 'rAK3FfdieFob2Nn8Am', 'response_type': 'device_code', 'scope': 'public_profile', 'version': '2.1', 'platform': 'unity', 'info': "{'device_id': 'a711a18c611f4b97b0f33737bcb8f07d'}"}
+[2024-08-13 13:38:13,281] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Return header：{'Date': 'Tue, 13 Aug 2024 05:37:49 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'access-control-allow-origin': '*', 'cache-control': 'no-store', 'set-cookie': 'ACCOUNTS_USER_ID=0; Path=/; Domain=tapapis.cn; Max-Age=0; Secure', 'content-encoding': 'gzip', 'vary': 'Accept-Encoding', 'Strict-Transport-Security': 'max-age=31536000'}
+[2024-08-13 13:38:13,281] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Status code：200
+[2024-08-13 13:38:13,281] [TapTapLogin-Request][PhiQRCodeLogin] [DEBUG] - Return data：{"data":{"device_code":"zGknyCvekrVvbej2WNdQDmOw3MKjjCteMFAKmTNg","user_code":"of3ee","verification_url":"https://accounts.taptap.cn/device","expires_in":300,"interval":2,"qrcode_url":"https://accounts.taptap.cn/device?qrcode=1\u0026user_code=of3ee"},"now":1723527469,"success":true}
+[2024-08-13 13:38:13,281] [QRCodeGetToken-<module>][PhiQRCodeLogin] [INFO] - 获取二维码信息成功：{'device_id': 'a711a18c611f4b97b0f33737bcb8f07d', 'device_code': 'zGknyCvekrVvbej2WNdQDmOw3MKjjCteMFAKmTNg', 'user_code': 'of3ee', 'verification_url': 'https://accounts.taptap.cn/device', 'expires_in': 300, 'interval': 2, 'qrcode_url': 'https://accounts.taptap.cn/device?qrcode=1&user_code=of3ee'}
+[2024-08-13 13:38:13,283] [QRCodeGetToken-<module>][PhiQRCodeLogin] [INFO] - 已生成二维码！
