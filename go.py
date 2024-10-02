@@ -17,7 +17,7 @@ test_config = read(os.path.join(os.path.dirname(__file__), "config.yaml"))
 
 
 
-smtp='smtp.qq.com'
+
 _log = logging.get_logger()
 sign = 0
 
