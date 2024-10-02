@@ -11,6 +11,7 @@ from datetime import datetime
 from botpy.message import  C2CMessage
 from email.mime.text import MIMEText
 import random
+from botpy.manage import GroupManageEvent
 
 
 test_config = read(os.path.join(os.path.dirname(__file__), "config.yaml"))
@@ -27,10 +28,10 @@ ziaoliggog_num = 0
 class MyClient(botpy.Client):
     async def on_ready(self):
         _log.info(f"robot 「{self.robot.name}」 on_ready!")
-    async def on_friend_add(self, event: C2CManageEvent):
-        _log.info("用户添加机器人：" + str(event))
-        await self.api.post_c2c_message(
-            openid=event.openid,
+    async def on_group_add_robot(self, event: GroupManageEvent):
+        _log.info("机器人被添加到群聊：" + str(event))
+        await self.api.post_group_message(
+            group_openid=event.group_openid,
             msg_type=0,
             event_id=event.event_id,
             content="你好，我是林狗狗，一种多功能调教型机器人，艾特我获取更多调教指令",
@@ -43,23 +44,7 @@ class MyClient(botpy.Client):
             event_id=event.event_id,
             content="再见",
         )
-    async def on_group_msg_reject(self, event: GroupManageEvent):
-        _log.info("群聊关闭机器人主动消息：" + str(event))
 
-        await self.api.post_c2c_message(
-            openid=event.openid,
-            msg_type=0,
-            event_id=event.event_id,
-            content="被管理员带口球了，赶紧让管理员开启主动消息",
-        )
-    async def on_group_msg_receive(self, event: GroupManageEvent):
-        _log.info("群聊打开机器人主动消息：" + str(event))
-        await self.api.post_c2c_message(
-            openid=event.openid,
-            msg_type=0,
-            event_id=event.event_id,
-            content="好耶，我终于能说话了",
-        )
     async def on_group_at_message_create(self, message: GroupMessage):
         _log.info(f"收到了消息：{message.content}")
         splited_content = message.content.split()
