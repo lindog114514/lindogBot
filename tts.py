@@ -15,7 +15,7 @@ def text_to_speech(text: str, output_file: str = "super.wav"):
 
 if __name__ == "__main__":
     # 将文本转换为语音并保存为WAV文件
-    text = "欢迎使用pyttsx3，这是一个将文本转换为语音的库。"
+    text = "林渝成被管理员禁言10分钟。"
     text_to_speech(text)
 
     # 将WAV文件转换为silk格式

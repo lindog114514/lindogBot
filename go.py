@@ -12,16 +12,13 @@ from botpy.message import  C2CMessage
 from email.mime.text import MIMEText
 import random
 from botpy.manage import GroupManageEvent
-
+from tts import text_to_speech
+import time
+from graiax import silkcoder
 
 test_config = read(os.path.join(os.path.dirname(__file__), "config.yaml"))
-
-
-
-
 _log = logging.get_logger()
 sign = 0
-
 ziaoliggog_num = 0
 
 
@@ -133,8 +130,34 @@ class MyClient(botpy.Client):
                      msg_type=0,
                      msg_id=message.id,
                      content=f"您的运气值是：%s居然是100，看来欧皇就是你了！！！！！！"%q)
-        elif splited_content[0] =='3':
-                pass
+        elif splited_content[0] =='/say':
+            user_input = splited_content[0]
+            if user_input.startswith("say "):    #还没完成
+                response = user_input[4:]
+                text_to_speech(response)
+                time.sleep(200)
+                silkcoder.encode("super.wav", "super.silk")
+                uploadMedia = await message._api.post_group_file(
+                  file_type=3,
+                  url="https://cn-sy1.rains3.com/lindog/lindog_win.jpg",
+                  group_openid= message.group_openid
+                )
+                messageResult = await message._api.post_group_message(
+                  group_openid=message.group_openid,
+                  msg_type=7,  # 7表示富媒体类型
+                  msg_id=message.id,
+                  media=uploadMedia
+                )
+
+            else:
+                await message._api.post_group_message(
+                group_openid=message.group_openid,
+                msg_type=0,
+                msg_id=message.id,
+                content=f"无效指令,（格式：say + 文字）")
+
+
+
         else:
             await message._api.post_group_message(
             group_openid=message.group_openid,
