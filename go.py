@@ -40,7 +40,7 @@ class MyClient(botpy.Client):
     async def on_group_at_message_create(self, message: GroupMessage):
         _log.info(f"收到了消息：{message.content}")
         splited_content = message.content.split()
-        if splited_content[0] == '我要玩林狗':
+        if splited_content[0] == '/我要玩林狗':
 
             if random.choice([True, False]):
                 global ziaoliggog_num
@@ -70,7 +70,7 @@ class MyClient(botpy.Client):
                   media=uploadMedia,
                   content="林狗躲过去了，并狠狠的嘲笑你：～杂鱼～～杂鱼～～杂鱼～～杂鱼～～杂鱼～～杂鱼～"
                 )
-        elif splited_content[0] =='签到':
+        elif splited_content[0] =='/签到':
                 now = datetime.now()
                 await message._api.post_group_message(
                      group_openid=message.group_openid,
@@ -95,7 +95,7 @@ class MyClient(botpy.Client):
                      content=f"签到失败，原因：时间这么晚了，赶紧洗洗睡了，明天的6点到23点再试")
 
 
-        elif splited_content[0] =='我的运气值':
+        elif splited_content[0] =='/我的运气值':
             q= random.randint(1, 100)
             if 1 <= q <= 10:
                 await message._api.post_group_message(
