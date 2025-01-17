@@ -1,7 +1,11 @@
+"""
+bot.py负责整个机器人的运行
+"""
 from flask import Flask, request, jsonify
 import bot_log
+import bot_tool
 import json
-
+import os
 
 help_page = ('''
             <!DOCTYPE html>
@@ -20,13 +24,17 @@ help_page = ('''
 </body>
 </html>''')
 
-
 log = bot_log.HandleLog()
 app = Flask(__name__)
+test_config= bot_tool.read(os.path.join(os.path.dirname(__file__), "config.yaml"))    #读取bot配置文件
+appid = test_config["appid"]
+secret=test_config["secret"]
+
+
 
 
 @app.route('/')
-def help_a():
+def help_a():           #接收到非webhook请求时将返回网页
     log.info('接收非POST请求')
     try:
         json_data = json.loads(request.data)
@@ -43,17 +51,17 @@ def webhook():
         # 解析请求数据
         json_data = json.loads(request.data)
         log.info(f"接收到json数据 : {json_data}")
-        # 在这里添加处理 json_data 的逻辑，例如根据不同的数据内容进行不同的操作
-        # 以下是一个简单的示例，你可以根据实际需求修改
-        if 'type' in json_data:
-            if json_data['type'] == 'message':
-                log.info("Received a message type of data.")
-                # 处理消息类型的数据
-            elif json_data['type'] == 'event':
-                log.info("Received an event type of data.")
-                # 处理事件类型的数据
+        if 'd' in json_data:
+            #开始签名校验
+            log.info('接收到回调验证请求')
+            plain_token = json_data["d"]["plain_token"]
+            event_ts = json_data["d"]["event_ts"]
+            log.info('接收到plain_token: %s' % plain_token)
+            log.info('接收到event_ts: %s' % event_ts)
+            bot_tool.handle_validation(bot_secret=secret,event_ts=event_ts,plain_token=plain_token)
+
         return jsonify({"status": "success", "data": json_data}), 200
-    except json.JSONDecodeError:
+    except json.JSONDecodeError:            #非json数据异常处理
         log.error("Invalid JSON data received.")
         return jsonify({"error": "Invalid JSON data"}), 400
 

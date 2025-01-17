@@ -5,11 +5,7 @@
 import yaml
 from typing import Dict, Any
 import bot_log
-import base64
-from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ed25519
-import json
-import logging
 
 log = bot_log.HandleLog()
 
@@ -19,31 +15,22 @@ def read(yaml_path) -> Dict[str, Any]: #读取指定目录的yaml文件
         return yaml.safe_load(f)
 
 """
-    Signature = HTTP Header 中透传 Signature
-    Timestamp = HTTP Header 透传的签名时间戳	
-    Body = HTTP 请求中 Body 值
-    secret = 机器人密钥 
+
 """
-
-
-def handle_validation(bot_secret, event_ts, plain_token):
-    # 生成种子
-    seed = bot_secret
-    while len(seed) < 32:
-        seed += seed
+def signature(botSecret, eventTs, plainToken):
+    log.info('开始进行回调验证 ')
+    # 对 botSecret 进行处理，确保长度足够
+    seed = botSecret
+    while len(seed) < 32:  # ed25519.SeedSize 一般为 32
+        seed = seed * 2
     seed = seed[:32]
-    # 生成私钥
-    private_key = ed25519.Ed25519PrivateKey.from_private_bytes(seed.encode())
-    # 生成签名
-    msg = event_ts + plain_token
-    signature = private_key.sign(msg.encode())
-    return signature
-
-
-# 示例调用
-if __name__ == "__main__":
-    bot_secret = "your_bot_secret"
-    event_ts = "1234567890"
-    plain_token = "abcdefg"
-    result = handle_validation(bot_secret, event_ts, plain_token)
-    print(result)
+    seed_bytes = seed.encode('utf-8')
+    # 使用 cryptography 生成 Ed25519 私钥
+    private_key = ed25519.Ed25519PrivateKey.from_private_bytes(seed_bytes)
+    # 构造要签名的消息
+    msg = (eventTs + plainToken).encode('utf-8')
+    # 进行签名
+    signature = private_key.sign(msg)
+    # 将签名结果转换为十六进制字符串
+    signature_hex = signature.hex()
+    return signature_hex
