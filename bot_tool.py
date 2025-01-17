@@ -5,6 +5,7 @@
 import yaml
 from typing import Dict, Any
 import bot_log
+import json
 from cryptography.hazmat.primitives.asymmetric import ed25519
 
 log = bot_log.HandleLog()
@@ -17,8 +18,15 @@ def read(yaml_path) -> Dict[str, Any]: #读取指定目录的yaml文件
 """
 
 """
-def signature(botSecret, eventTs, plainToken):
-    log.info('开始进行回调验证 ')
+import json
+from cryptography.hazmat.primitives.asymmetric import ed25519
+
+
+import json
+from cryptography.hazmat.primitives.asymmetric import ed25519
+
+
+def generate_signature(botSecret, eventTs, plainToken):
     # 对 botSecret 进行处理，确保长度足够
     seed = botSecret
     while len(seed) < 32:  # ed25519.SeedSize 一般为 32
@@ -33,4 +41,18 @@ def signature(botSecret, eventTs, plainToken):
     signature = private_key.sign(msg)
     # 将签名结果转换为十六进制字符串
     signature_hex = signature.hex()
-    return signature_hex
+    # 构建包含 plain_token 和 signature 的 JSON 数据
+    result = {
+        "plain_token": plainToken,
+        "signature": signature_hex
+    }
+    # 将结果转换为 JSON 格式的字符串
+    result_json = json.dumps(result)
+    return result_json
+
+
+def signature(bot_secret, event_ts, plain_token):
+    result = generate_signature(bot_secret, event_ts, plain_token)
+    log.info(result)
+    return result
+

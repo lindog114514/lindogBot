@@ -23,9 +23,11 @@ def send_post_request():
         "op": 13
     }
     response = requests.post(url, headers=headers, json=data)
+    print(response)
     if response.status_code == 200:
         print("Request was successful")
         print(response.text)
+
     else:
         print(f"Request failed with status code: {response.status_code}")
         print(response.text)
