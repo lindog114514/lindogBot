@@ -31,7 +31,7 @@ app = Flask(__name__)
 test_config = bot_tool.read(os.path.join(os.path.dirname(__file__), "config.yaml") )    # 读取bot配置文件
 appid = test_config["appid"]
 secret = test_config["secret"]
-verifybot = test_config["verifybot"]
+token = bot_tool.Token(app_id=appid,secret=secret)
 port = 8433 #QQ机器人端口
 
 @app.route('/')
@@ -53,6 +53,7 @@ def webhook():
         # 解析请求数据
         json_data = json.loads(request.data)
         log.info(f"接收到json数据 : {json_data}")
+        token.update_access_token()   #获取accesstoken
         if 'd' in json_data:
             # 开始签名校验
             log.info('接收到回调验证请求')
@@ -78,5 +79,3 @@ def webhook():
 
 if __name__ == "__main__":
     app.run(port=port)
-    if verifybot == False:
-        log.warning('请完成回调验证否则将影响bot运行 ')

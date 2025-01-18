@@ -101,13 +101,10 @@ class Token:
         """
         return self.access_token
 
-
-# 使用示例
-def main():
-    token = Token("102497417", "3cBkJtT3dDnNxY9kLwX8kMyaCoQ3gJwZ")
-    token.update_access_token()
-    print(token.get_access_token())
-
+"""
 
 if __name__ == "__main__":
-    main()
+    token = Token("1111111111111", "wX8kMyaCoQ3gJwZ")
+    token.update_access_token()
+    print(token.get_access_token())
+"""
