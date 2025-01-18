@@ -31,7 +31,8 @@ app = Flask(__name__)
 test_config = bot_tool.read(os.path.join(os.path.dirname(__file__), "config.yaml") )    # 读取bot配置文件
 appid = test_config["appid"]
 secret = test_config["secret"]
-
+verifybot = test_config["verifybot"]
+port = 8433 #QQ机器人端口
 
 @app.route('/')
 def help_a():           # 接收到非webhook请求时将返回网页
@@ -47,6 +48,7 @@ def help_a():           # 接收到非webhook请求时将返回网页
 
 @app.route("/webhook", methods=['POST'])
 def webhook():
+
     try:
         # 解析请求数据
         json_data = json.loads(request.data)
@@ -61,11 +63,13 @@ def webhook():
             signature_response = bot_tool.signature(bot_secret=secret, event_ts=event_ts, plain_token=plain_token)
             try:
                 signature_data = json.loads(signature_response)
-                log.info('签名成功已正常返回')
+                log.info('回调验证已正常返回')
+
                 return jsonify(signature_data), 200
             except json.JSONDecodeError:
                 log.error("Invalid signature response received.")
                 return jsonify({"error": "Invalid signature response."}), 400
+
         return jsonify({"status": "success", "data": json_data}), 200
     except json.JSONDecodeError:            # 非json数据异常处理
         log.error("Invalid JSON data received.")
@@ -73,4 +77,6 @@ def webhook():
 
 
 if __name__ == "__main__":
-    app.run(port=8433)
+    app.run(port=port)
+    if verifybot == False:
+        log.warning('请完成回调验证否则将影响bot运行 ')

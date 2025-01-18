@@ -1,10 +1,13 @@
 """
 负责签名校验的加密算法
-以及读取文件等
+以及读取文件和获取调用凭证
 """
+
 import yaml
 from typing import Dict, Any
 import bot_log
+import time
+import requests
 import json
 from cryptography.hazmat.primitives.asymmetric import ed25519
 
@@ -16,16 +19,8 @@ def read(yaml_path) -> Dict[str, Any]: #读取指定目录的yaml文件
         return yaml.safe_load(f)
 
 """
-
+回调验证
 """
-import json
-from cryptography.hazmat.primitives.asymmetric import ed25519
-
-
-import json
-from cryptography.hazmat.primitives.asymmetric import ed25519
-
-
 def generate_signature(botSecret, eventTs, plainToken):
     # 对 botSecret 进行处理，确保长度足够
     seed = botSecret
@@ -55,4 +50,64 @@ def signature(bot_secret, event_ts, plain_token):
     result = generate_signature(bot_secret, event_ts, plain_token)
     log.info(result)
     return result
+"""
+获取调用凭证
+access_token
+HTTP Method = port
+"""
+class Token:
+    TYPE_BOT = "QQBot"
+    TYPE_NORMAL = "Bearer"
 
+    def __init__(self, app_id: str, secret: str):
+        self.app_id = app_id
+        self.secret = secret
+        self.access_token = None
+        self.expires_in = 0
+        self.Type = self.TYPE_BOT
+
+    def check_token(self):
+        """
+        检查令牌是否过期或不存在，如果过期或不存在则更新令牌
+        """
+        if self.access_token is None or int(time.time()) >= self.expires_in:
+            self.update_access_token()
+
+    def update_access_token(self):
+        """
+        发送 POST 请求更新访问令牌，并处理响应
+        """
+        url = "https://bots.qq.com/app/getAppAccessToken"
+        payload = {
+            "appId": self.app_id,
+            "clientSecret": self.secret,
+        }
+        try:
+            response = requests.post(url, json=payload, timeout=20)
+            response.raise_for_status()  # 检查请求是否成功
+            data = response.json()
+            if "access_token" not in data or "expires_in" not in data:
+                raise RuntimeError("获取token失败，请检查appid和secret填写是否正确！")
+            self.access_token = data["access_token"]
+            self.expires_in = int(data["expires_in"]) + int(time.time())
+        except requests.exceptions.RequestException as e:
+            print(f"请求出现异常: {e}")
+            # 可以根据需要添加更复杂的异常处理逻辑，例如记录日志或重试
+            raise
+
+    def get_access_token(self):
+        """
+        获取存储的访问令牌
+        """
+        return self.access_token
+
+
+# 使用示例
+def main():
+    token = Token("102497417", "3cBkJtT3dDnNxY9kLwX8kMyaCoQ3gJwZ")
+    token.update_access_token()
+    print(token.get_access_token())
+
+
+if __name__ == "__main__":
+    main()
