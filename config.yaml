@@ -1,3 +1,7 @@
 #请填入从QQ开放平台获取的appid和secret
 appid: "1234567890"
 secret: "114514114514"
+
+
+#QQ bot配置文件
+verifybot: False  #已完成回调验证
