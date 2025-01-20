@@ -10,7 +10,6 @@ import time
 import requests
 import json
 from cryptography.hazmat.primitives.asymmetric import ed25519
-
 log = bot_log.HandleLog()
 
 
@@ -87,24 +86,13 @@ class Token:
             response.raise_for_status()  # 检查请求是否成功
             data = response.json()
             if "access_token" not in data or "expires_in" not in data:
-                raise RuntimeError("获取token失败，请检查appid和secret填写是否正确！")
+                log.info("获取token失败，请检查appid和secret填写是否正确！")
             self.access_token = data["access_token"]
             self.expires_in = int(data["expires_in"]) + int(time.time())
         except requests.exceptions.RequestException as e:
-            print(f"请求出现异常: {e}")
-            # 可以根据需要添加更复杂的异常处理逻辑，例如记录日志或重试
-            raise
-
+            pass
     def get_access_token(self):
         """
         获取存储的访问令牌
         """
         return self.access_token
-
-"""
-
-if __name__ == "__main__":
-    token = Token("1111111111111", "wX8kMyaCoQ3gJwZ")
-    token.update_access_token()
-    print(token.get_access_token())
-"""

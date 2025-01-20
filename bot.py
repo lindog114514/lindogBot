@@ -4,9 +4,7 @@
 from flask import Flask, request, jsonify
 import bot_log
 import bot_tool
-import json
-import os
-
+import json,os
 
 help_page = ('''
             <!DOCTYPE html>
