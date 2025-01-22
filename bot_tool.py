@@ -9,6 +9,7 @@ import bot_log
 import time
 import requests
 import json
+import sys
 from cryptography.hazmat.primitives.asymmetric import ed25519
 log = bot_log.HandleLog()
 
@@ -63,7 +64,7 @@ class Token:
         self.secret = secret
         self.access_token = None
         self.expires_in = 0
-        self.Type = self.TYPE_BOT
+        self.token_type = self.TYPE_BOT  # 更改变量名，符合命名规范
 
     def check_token(self):
         """
@@ -86,11 +87,13 @@ class Token:
             response.raise_for_status()  # 检查请求是否成功
             data = response.json()
             if "access_token" not in data or "expires_in" not in data:
-                log.info("获取token失败，请检查appid和secret填写是否正确！")
-            self.access_token = data["access_token"]
-            self.expires_in = int(data["expires_in"]) + int(time.time())
+                log.error("获取token失败，请检查appid和secret填写是否正确！")
+            else:
+                self.access_token = data["access_token"]
+                self.expires_in = int(data["expires_in"]) + int(time.time())
         except requests.exceptions.RequestException as e:
-            pass
+            log.error(f"更新token时发生错误: {e}")
+
     def get_access_token(self):
         """
         获取存储的访问令牌
