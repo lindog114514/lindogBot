@@ -31,6 +31,8 @@ appid = test_config["appid"]
 secret = test_config["secret"]
 host = test_config["host"]
 port = test_config["port"]
+pem = test_config["pem"]
+key = test_config["key"]
 token = bot_tool.Token(app_id=appid,secret=secret)
 # https://api.sgroup.qq.com
 
@@ -73,4 +75,4 @@ def webhook():
     return jsonify({"status": "success", "data": json_data}), 200  #防止flash当没有接收返回数据的时候报错
 
 if __name__ == "__main__":
-    app.run(port=port,host=host)
+    app.run(port=port,host=host,ssl_context=(pem,key))

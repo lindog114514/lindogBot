@@ -1,7 +1,11 @@
-#请填入从QQ开放平台获取的appid和secret
+# 请填入从QQ开放平台获取的appid和secret
 appid: "1234567890"
 secret: "114514114514"
-#bot配置
-host: "0.0.0.0"   服务器
-#host: "127.0.0.1"  #WIN
+
+# bot配置
+host: "0.0.0.0"   # 服务器
+# host: "127.0.0.1"  # WIN
 port: "8433"
+#SSL证书文件路径
+pem: ""
+key: ""
