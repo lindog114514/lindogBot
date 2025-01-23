@@ -6,6 +6,8 @@ secret: "114514114514"
 host: "0.0.0.0"   # 服务器
 # host: "127.0.0.1"  # WIN
 port: "8433"
+#开启回调验证
+signature: "True"
 #SSL证书文件路径
 pem: ""
 key: ""

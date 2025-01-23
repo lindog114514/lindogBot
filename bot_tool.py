@@ -99,3 +99,17 @@ class Token:
         获取存储的访问令牌
         """
         return self.access_token
+"""
+发送群聊和单聊消息 
+
+"""
+class seed_message:
+    def  __init__(self):
+        pass
+
+    def one_to_one_messaging(self,openid,content,msg_id,msg_seq):
+        pass
+
+
+    def group_messages(self,group_openid,content,msg_id,msg_seq):
+        pass

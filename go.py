@@ -10,7 +10,7 @@ from botpy.message import GroupMessage, Message
 from botpy.ext.cog_yaml import read
 from datetime import datetime
 
-import random
+import random,requests
 from botpy.manage import GroupManageEvent
 
 
@@ -20,8 +20,8 @@ _log = logging.get_logger()
 sign = 0
 ziaoliggog_num = 0
 
-
-
+def send_post_request():
+    url = "https://moe.jitsu.top/img/?sort=r18&num=1"
 class MyClient(botpy.Client):
     async def on_ready(self):
         _log.info(f"robot 「{self.robot.name}」 on_ready!")
@@ -117,8 +117,8 @@ class MyClient(botpy.Client):
                      msg_id=message.id,
                      content=f"您的运气值是：%s居然是100，看来欧皇就是你了！！！！！！"%q)
 
-        elif splited_content[0] == '/Bing每日一图':
-            pass
+        elif splited_content[0] == '/随机涩图':
+            _log.info(send_post_request)
         '''    
         else:
             await message._api.post_group_message(
